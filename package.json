@@ -1,0 +1,22 @@
+{
+  "name": "international-house-price",
+  "version": "1.0.0",
+  "description": "This is a visualization of data provided by Federal Reserve Bank of Dallas",
+  "main": "./data/export-data.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rayvafa/international-house-price.git"
+  },
+  "author": "Ray Vafa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rayvafa/international-house-price/issues"
+  },
+  "homepage": "https://github.com/rayvafa/international-house-price#readme",
+  "devDependencies": {
+    "node-xlsx": "^0.7.4"
+  }
+}
