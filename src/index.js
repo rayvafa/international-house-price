@@ -70,8 +70,16 @@ function pathGenerator(data, color) {
             d: generatePathData(data),
             "stroke": color,
             "stroke-width": 2,
-            "fill": "none"
+            "fill": "none",
+            "fill-opacity": 0,
         });
+    var vizLength = viz.node().getTotalLength();
+
+    viz.attr("stroke-dasharray", vizLength + " " + vizLength)
+        .attr("stroke-dashoffset", vizLength)
+        .transition()
+        .duration(1250)
+        .attr("stroke-dashoffset", 0);
 }
 
 $(".country-list-drop-down").select2({
