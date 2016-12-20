@@ -22,7 +22,7 @@ hp1602.map((sheet, index) => {
         if(!countryName) continue;
         let countryDataArray = [];
         for(let dataCounter = 2; dataCounter <= sheet.data.length; dataCounter++) {
-            if(!sheet.data[dataCounter])continue;
+            if(!sheet.data[dataCounter] || !sheet.data[dataCounter][0])continue;
             const quarterValue = sheet.data[dataCounter][counter];
             countryDataArray.push({
                 date: sheet.data[dataCounter][0],
