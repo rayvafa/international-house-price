@@ -1,31 +1,64 @@
-var h = 350;
-var w = 1000;
+var height = 350;
+var width = 1000;
+var padding = 40;
 
 var rhpiData = window.rhpi;
 
-monthlySales = [
-    {"month":10, "sales":100},
-    {"month":20, "sales":130},
-    {"month":30, "sales":250},
-    {"month":40, "sales":300},
-    {"month":50, "sales":265},
-    {"month":60, "sales":225},
-    {"month":70, "sales":180},
-    {"month":80, "sales":120},
-    {"month":90, "sales":145},
-    {"month":100, "sales":130}
-];
+function getDate(date){
 
+    //1975:Q1
+    var dateSegments = date.split(':');
+    var year = dateSegments[0];
+    var quarter = dateSegments[1];
+    if(quarter === 'Q1') {
+        return new Date(year, 2, 31);
+    } else if(quarter === 'Q2') {
+        return new Date(year, 5, 30);
+    } else if(quarter === 'Q3') {
+        return new Date(year, 8, 30);
+    } else if(quarter === 'Q4') {
+        return new Date(year, 11, 30);
+    }
+    return null;
+}
+
+//create our SVG
+var svg = d3.select("#svg").append("svg").attr({ width:width, height: height});
+
+var minDate = getDate(rhpiData.data[0].data[0].date);
+var maxDate = getDate(rhpiData.data[0].data[rhpiData.data[0].data.length - 1].date);
+
+var xScale = d3.time.scale()
+    .domain([minDate, maxDate])
+    .range([padding+5, width - padding])
+    .nice();
+
+
+var yScale = d3.scale.linear()
+    .domain([0, 250])
+    .range([height - padding , 10])
+    .nice();
+
+var xAxisGen = d3.svg.axis().scale(xScale).orient("bottom").tickFormat(d3.time.format("%Y"));
+var yAxisGen = d3.svg.axis().scale(yScale).orient("left").ticks(4);
+
+var yAxis = svg.append("g").call(yAxisGen)
+    .attr("class", "y-axis")
+    .attr("transform", "translate(" + padding + ", 0)");
+
+var xAxis = svg.append("g").call(xAxisGen)
+    .attr("class","x-axis")
+    .attr("transform", "translate(0," + (height - padding) + ")");
+
+//build the viz
 //Function to generate line "path"
 function generatePathData(data) {
-    var counter = 1;
     var lineFun = d3.svg.line()
         .x(function (d) {
-            counter = counter + 5;
-            return counter;
+            return xScale(getDate(d.date));
         })
         .y(function (d) {
-            return h-d.value;
+            return yScale(d.value);
         })
         .interpolate("linear");
     return lineFun(data);
@@ -41,16 +74,12 @@ function pathGenerator(data, color) {
         });
 }
 
-//create our SVG
-var svg = d3.select("#svg").append("svg").attr({ width:w, height: h});
-
-//build the viz
 $(".country-list-drop-down").select2({
     placeholder: "Select a country"
 });
 $(".country-list-drop-down").change(function() {
     var selectedCountries = $(".country-list-drop-down").val();
-    svg.selectAll("path").remove();
+    // svg.selectAll("path").remove();
     for(var i = 0; i<selectedCountries.length; i++) {
         pathGenerator(rhpiData.data[selectedCountries[i]].data, "black");
     }

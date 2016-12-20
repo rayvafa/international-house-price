@@ -5,3 +5,15 @@
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
     background: white;
 }
+
+.x-axis path, .y-axis path,
+.x-axis line, .y-axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.x-axis, .y-axis text {
+    font-family: sans-serif;
+    font-size: 10px;
+}
