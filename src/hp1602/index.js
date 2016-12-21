@@ -40,7 +40,7 @@ var xScale = d3.time.scale()
 
 
 var yScale = d3.scale.linear()
-  .domain([0, 250])
+  .domain([0, 220])
   .range([height - padding, 10])
   .nice();
 
@@ -55,7 +55,7 @@ var xAxis = svg.append("g").call(xAxisGen)
   .attr("class", "x-axis")
   .attr("transform", "translate(0," + (height - padding) + ")");
 
-//build the viz
+//build the path
 //Function to generate line "path"
 function generatePathData(data) {
   var lineFun = d3.svg.line()
@@ -70,7 +70,7 @@ function generatePathData(data) {
 }
 
 function pathGenerator(selectedCountryData, selectedCountriesIndex, color) {
-  var viz = svg.append("path")
+  var path = svg.append("path")
     .attr({
       d: generatePathData(selectedCountryData.data),
       "stroke": color,
@@ -79,10 +79,10 @@ function pathGenerator(selectedCountryData, selectedCountriesIndex, color) {
       "fill-opacity": 0,
       "class": "country-path-" + selectedCountriesIndex,
     });
-  var vizLength = viz.node().getTotalLength();
+  var pathLength = path.node().getTotalLength();
 
-  viz.attr("stroke-dasharray", vizLength + " " + vizLength)
-    .attr("stroke-dashoffset", vizLength)
+  path.attr("stroke-dasharray", pathLength + " " + pathLength)
+    .attr("stroke-dashoffset", pathLength)
     .transition()
     .duration(1250)
     .attr("stroke-dashoffset", 0);
