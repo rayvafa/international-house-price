@@ -5,6 +5,9 @@ window.dataBlobs = {
     selectedCountriesIndex: []
 };
 var rhpiData = window.rhpi;
+var hpiData = window.hpi;
+var pdiData = window.pdi;
+var rpdiData = window.rpdi;
 
 function getDate(date){
 
@@ -94,7 +97,25 @@ $(".country-list-drop-down").change(function() {
         svg.selectAll(".country-path-" + countryIndex).remove();
     });
     _.difference(selectedCountriesIndex, window.dataBlobs.selectedCountriesIndex).map(function(countryIndex) {
-        pathGenerator(rhpiData.data[countryIndex], countryIndex, "black");
+        var activeChartTypes = [];
+        $('.btn.btn-default.active').each(function( index ) {
+            activeChartTypes.push($( this ).val());
+        });
+        _.map(activeChartTypes, function (activeChartType) {
+            if(activeChartType === 'HPI') {
+                pathGenerator(hpiData.data[countryIndex], countryIndex, "#0ea800");
+            } else if(activeChartType === 'RHPI') {
+                pathGenerator(rhpiData.data[countryIndex], countryIndex, "#3EFF2D");
+            } else if(activeChartType === 'PDI') {
+                pathGenerator(pdiData.data[countryIndex], countryIndex, "#B2006F");
+            } else if(activeChartType === 'RPDI') {
+                pathGenerator(rpdiData.data[countryIndex], countryIndex, "#FF009E");
+            }
+        });
     });
     window.dataBlobs.selectedCountriesIndex = selectedCountriesIndex;
+});
+
+$('.btn.btn-default').click(function(event) {
+    $(this).toggleClass('active');
 });

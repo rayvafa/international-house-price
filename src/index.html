@@ -17,6 +17,7 @@
 <body>
 <div class="container">
     <h3>International House Price Index</h3>
+    <br/><br/>
     <div>
         <select class="country-list-drop-down" multiple="multiple">
             <option value="0">Australia</option>
@@ -44,12 +45,20 @@
             <option value="22">Israel</option>
             <option value="23">Aggregate</option>
         </select>
-        <input class="btn btn-default" type="button" value="Input">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default hpi active" value="HPI">HPI</button>
+            <button type="button" class="btn btn-default rhpi" value="RHPI">RHPI</button>
+            <button type="button" class="btn btn-default pdi" value="PDI">PDI</button>
+            <button type="button" class="btn btn-default rpdi" value="RPDI">RPDI</button>
+        </div>
     </div>
+    <br/><br/><br/><br/>
     <div id="svg"></div>
 </div>
 <script src="./data/hpi-data.js"></script>
 <script src="./data/rhpi-data.js"></script>
+<script src="./data/pdi-data.js"></script>
+<script src="./data/rpdi-data.js"></script>
 <script src="./index.js"></script>
 </body>
 </html>
