@@ -86,6 +86,20 @@ function pathGenerator(selectedCountryData, selectedCountriesIndex, color) {
     .transition()
     .duration(1250)
     .attr("stroke-dashoffset", 0);
+
+  var lastDataItem = selectedCountryData.data[selectedCountryData.data.length - 1];
+  var label = svg.append("text")
+    .text(function(d){ return selectedCountryData.name; })
+    .attr({
+      x: function(d){ return xScale(getDate("2016:Q4")); },
+      y: function(d){ return yScale(lastDataItem.value); },
+      "class": "country-text-" + selectedCountriesIndex,
+      "font-size": "12px",
+      "font-family": "sans-serif",
+      "fill": "#666666",
+      "text-anchor": "start",
+      "dy": ".35em",
+    });
 }
 
 $(".country-list-drop-down").select2({
@@ -95,6 +109,7 @@ $(".country-list-drop-down").change(function () {
   var selectedCountriesIndex = $(".country-list-drop-down").val() || [];
   _.difference(window.dataBlobs.selectedCountriesIndex, selectedCountriesIndex).map(function (countryIndex) {
     svg.selectAll(".country-path-" + countryIndex).remove();
+    svg.selectAll(".country-text-" + countryIndex).remove();
   });
   _.difference(selectedCountriesIndex, window.dataBlobs.selectedCountriesIndex).map(function (countryIndex) {
     var activeChartTypes = [];
