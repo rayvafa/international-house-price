@@ -33,7 +33,7 @@
 
 .btn.btn-default.hpi.active {
   color: white;
-  background-color: #0ea800;
+  background-color: rgba(14, 168, 0, 1);
 }
 
 .btn.btn-default.rhpi.active {
@@ -43,7 +43,7 @@
 
 .btn.btn-default.pdi.active {
   color: white;
-  background-color: #B2006F;
+  background-color: rgba(14, 168, 0, 0.5);
 }
 
 .btn.btn-default.rpdi.active {

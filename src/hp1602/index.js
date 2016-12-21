@@ -69,11 +69,12 @@ function generatePathData(data) {
   return lineFun(data);
 }
 
-function pathGenerator(selectedCountryData, selectedCountriesIndex, color) {
+function pathGenerator(selectedCountryData, selectedCountriesIndex, color, opacity) {
   var path = svg.append("path")
     .attr({
       d: generatePathData(selectedCountryData.data),
       "stroke": color,
+      "opacity": opacity,
       "stroke-width": 2,
       "fill": "none",
       "fill-opacity": 0,
@@ -105,6 +106,7 @@ function pathGenerator(selectedCountryData, selectedCountriesIndex, color) {
 $(".country-list-drop-down").select2({
   placeholder: "Select a country"
 });
+
 $(".country-list-drop-down").change(function () {
   var selectedCountriesIndex = $(".country-list-drop-down").val() || [];
   _.difference(window.dataBlobs.selectedCountriesIndex, selectedCountriesIndex).map(function (countryIndex) {
@@ -118,11 +120,11 @@ $(".country-list-drop-down").change(function () {
     });
     _.map(activeChartTypes, function (activeChartType) {
       if (activeChartType === 'HPI') {
-        pathGenerator(hpiData.data[countryIndex], countryIndex, "#0ea800");
+        pathGenerator(hpiData.data[countryIndex], countryIndex, window.colours[countryIndex].color, 1);
       } else if (activeChartType === 'RHPI') {
         pathGenerator(rhpiData.data[countryIndex], countryIndex, "#3EFF2D");
       } else if (activeChartType === 'PDI') {
-        pathGenerator(pdiData.data[countryIndex], countryIndex, "#B2006F");
+        pathGenerator(pdiData.data[countryIndex], countryIndex, window.colours[countryIndex].color, 0.5);
       } else if (activeChartType === 'RPDI') {
         pathGenerator(rpdiData.data[countryIndex], countryIndex, "#FF009E");
       }
@@ -133,4 +135,9 @@ $(".country-list-drop-down").change(function () {
 
 $('.btn.btn-default').click(function (event) {
   $(this).toggleClass('active');
+  $(".country-list-drop-down").val('');
+  var selectedItems = $(".select2-selection__choice__remove");
+  for(var i = selectedItems.length - 1; i >= 0; i--) {
+    $(selectedItems[i]).click();
+  }
 });
