@@ -2,8 +2,17 @@
   width: 500px;
 }
 
+.select2-container--default .select2-search--inline .select2-search__field {
+  height: 30px;
+}
+
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
   background: white;
+  padding: 5px 10px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+  margin-right: 5px;
 }
 
 .x-axis path, .y-axis path,
