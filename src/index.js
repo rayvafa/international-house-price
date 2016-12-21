@@ -1,7 +1,9 @@
 var height = 350;
 var width = 1000;
 var padding = 40;
-
+window.dataBlobs = {
+    selectedCountriesIndex: []
+};
 var rhpiData = window.rhpi;
 
 function getDate(date){
@@ -64,14 +66,15 @@ function generatePathData(data) {
     return lineFun(data);
 }
 
-function pathGenerator(data, color) {
+function pathGenerator(selectedCountryData, selectedCountriesIndex, color) {
     var viz = svg.append("path")
         .attr({
-            d: generatePathData(data),
+            d: generatePathData(selectedCountryData.data),
             "stroke": color,
             "stroke-width": 2,
             "fill": "none",
             "fill-opacity": 0,
+            "class": "country-path-" + selectedCountriesIndex,
         });
     var vizLength = viz.node().getTotalLength();
 
@@ -86,9 +89,12 @@ $(".country-list-drop-down").select2({
     placeholder: "Select a country"
 });
 $(".country-list-drop-down").change(function() {
-    var selectedCountries = $(".country-list-drop-down").val();
-    // svg.selectAll("path").remove();
-    for(var i = 0; i<selectedCountries.length; i++) {
-        pathGenerator(rhpiData.data[selectedCountries[i]].data, "black");
-    }
+    var selectedCountriesIndex = $(".country-list-drop-down").val() || [];
+    _.difference(window.dataBlobs.selectedCountriesIndex, selectedCountriesIndex).map(function(countryIndex) {
+        svg.selectAll(".country-path-" + countryIndex).remove();
+    });
+    _.difference(selectedCountriesIndex, window.dataBlobs.selectedCountriesIndex).map(function(countryIndex) {
+        pathGenerator(rhpiData.data[countryIndex], countryIndex, "black");
+    });
+    window.dataBlobs.selectedCountriesIndex = selectedCountriesIndex;
 });
