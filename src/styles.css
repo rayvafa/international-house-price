@@ -1,43 +1,43 @@
 .country-list-drop-down {
-    width: 500px;
+  width: 500px;
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
-    background: white;
+  background: white;
 }
 
 .x-axis path, .y-axis path,
 .x-axis line, .y-axis line {
-    fill: none;
-    stroke: black;
-    shape-rendering: crispEdges;
+  fill: none;
+  stroke: black;
+  shape-rendering: crispEdges;
 }
 
 .x-axis, .y-axis text {
-    font-family: sans-serif;
-    font-size: 10px;
+  font-family: sans-serif;
+  font-size: 10px;
 }
 
 .btn-group {
-    float: right;
+  float: right;
 }
 
 .btn.btn-default.hpi.active {
-    color: white;
-    background-color: #0ea800;
+  color: white;
+  background-color: #0ea800;
 }
 
 .btn.btn-default.rhpi.active {
-    color: white;
-    background-color: #3EFF2D;
+  color: white;
+  background-color: #3EFF2D;
 }
 
 .btn.btn-default.pdi.active {
-    color: white;
-    background-color: #B2006F;
+  color: white;
+  background-color: #B2006F;
 }
 
 .btn.btn-default.rpdi.active {
-    color: white;
-    background-color: #FF009E;
+  color: white;
+  background-color: #FF009E;
 }
